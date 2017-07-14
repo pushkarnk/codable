@@ -19,11 +19,12 @@ let commitsString = """
 struct GitCommit : Decodable {
     let author: String
     let message: String
-    let date: String
+    let date: Date 
 }
 
 let data = commitsString.data(using: .utf8)!
 let decoder = JSONDecoder()
+decoder.dateDecodingStrategy = .iso8601
 let commits = try! decoder.decode([GitCommit].self, from: data)
 
 for commit in commits {
