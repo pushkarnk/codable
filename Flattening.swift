@@ -5,7 +5,7 @@ let commitString = """
     "author": "simplyhacking",
     "message": "Fixed that data race",
     "date": "2017-06-21T15:29:32Z",
-    "tags": {
+    "tag": {
         "major": 10,
         "minor": 19
     }
@@ -37,7 +37,7 @@ extension GitCommit {
         let author = try container.decode(String.self, forKey: .author)
         let date = try container.decode(Date.self, forKey: .date)
         let message = try container.decode(String.self, forKey: .message)
-        let tags = try decoder.container(keyedBy: TagCodingKeys.self)
+        let tags = try container.nestedContainer(keyedBy: TagCodingKeys.self, forKey: .tag)
         let major = try tags.decode(Int.self, forKey: .major)
         let minor = try tags.decode(Int.self, forKey: .minor)
        
